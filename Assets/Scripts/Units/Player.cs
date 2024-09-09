@@ -1,30 +1,19 @@
-using System.Collections;
 using UnityEngine;
 
 public class Player : Unit
 {
-    public GameObject projectilePrefab;
+    public Gun Gun;
 
-    private Camera mainCamera;
-    private new Rigidbody rigidbody;
-    private GameObject shooter;
-
-    private Vector3 originalScale;
     private Vector3 moveInput;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         transform.position = new Vector3(0, -1, 0);
         speed = 4.0f;
         range = 10.0f;
-
-        mainCamera = Camera.main;
-        rigidbody = GetComponent<Rigidbody>();
-        // Get the Shooter object from the Player object
-        shooter = transform.Find("Shooter").gameObject;
-
-        originalScale = transform.localScale;
     }
 
     private void Update()
@@ -42,77 +31,34 @@ public class Player : Unit
     void FixedUpdate()
     {
         rigidbody.velocity = moveInput;
+        rigidbody.position = gameArea.KeepInside(rigidbody.position, 0.5f);
     }
 
-    public override void Attack()
+    protected override void Attack()
     {
-        // Shoot a projectile in direction of the mouse
-        var (success, mousePosition) = GetMousePosition();
+        var (success, direction) = GetAimDirection();
         if (!success)
             return;
 
-        var direction = (mousePosition - shooter.transform.position);
+        Gun.Shoot(shooter.transform.position, direction);
+
+        StartCoroutine(SqashAndStretch());
+    }
+
+    private (bool success, Vector3 direction) GetAimDirection()
+    {
+        // Shoot a projectile in direction of the mouse
+        var (success, mousePosition) = MouseAiming.GetMousePosition();
+        if (!success)
+            return (false, Vector3.zero);
+
+        var direction = mousePosition - shooter.transform.position;
         // Ignore direction along y-axis
         direction.y = 0;
         // Add a slight deviation to the direction
         direction.x += Random.Range(-0.1f, 0.1f);
         direction = direction.normalized;
 
-        Debug.DrawRay(shooter.transform.position, direction, Color.red, 1.0f);
-
-        // Instantiate a projectile
-        var projectile = Instantiate(projectilePrefab, shooter.transform.position, projectilePrefab.transform.rotation);
-        projectile.GetComponent<Rigidbody>().velocity = direction * range;
-
-        // Rotate the projectile to face the direction, with slight random deviation
-        projectile.transform.LookAt(direction);
-        projectile.transform.Rotate(Vector3.up, Random.Range(-50.0f, 50.0f));
-
-        Destroy(projectile, 2.0f);
-
-        StartCoroutine(SqashAndStretch());
-    }
-
-    IEnumerator SqashAndStretch()
-    {
-        var squashScale = originalScale * 0.8f;
-
-        // Use Lerp to smoothly transition between the original scale and the squash scale
-        for (float t = 0; t < 0.05f; t += Time.deltaTime)
-        {
-            transform.localScale = Vector3.Lerp(originalScale, squashScale, t / 0.05f);
-            yield return new WaitForEndOfFrame();
-        }
-
-        var stretchScale = originalScale * 1.2f;
-        for (float t = 0; t < 0.1f; t += Time.deltaTime)
-        {
-            transform.localScale = Vector3.Lerp(squashScale, stretchScale, t / 0.1f);
-            yield return new WaitForEndOfFrame();
-        }
-
-        for (float t = 0; t < 0.05f; t += Time.deltaTime)
-        {
-            transform.localScale = Vector3.Lerp(stretchScale, originalScale, t / 0.05f);
-            yield return new WaitForEndOfFrame();
-        }
-    }
-
-    private (bool success, Vector3 position) GetMousePosition()
-    {
-        var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-
-        Debug.DrawRay(ray.origin, ray.direction, Color.green, 1.0f);
-
-        if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, LayerMask.GetMask("Ground")))
-        {
-            // The Raycast hit something, return with the position.
-            return (success: true, position: hitInfo.point);
-        }
-        else
-        {
-            // The Raycast did not hit anything.
-            return (success: false, position: Vector3.zero);
-        }
+        return (true, direction);
     }
 }
