@@ -7,6 +7,7 @@ public class Player : Unit
 
     private Camera mainCamera;
     private new Rigidbody rigidbody;
+    private GameObject shooter;
 
     private Vector3 originalScale;
     private Vector3 moveInput;
@@ -20,6 +21,8 @@ public class Player : Unit
 
         mainCamera = Camera.main;
         rigidbody = GetComponent<Rigidbody>();
+        // Get the Shooter object from the Player object
+        shooter = transform.Find("Shooter").gameObject;
 
         originalScale = transform.localScale;
     }
@@ -48,24 +51,21 @@ public class Player : Unit
         if (!success)
             return;
 
-        var direction = (mousePosition - transform.position).normalized;
-
-        direction *= range;
-
+        var direction = (mousePosition - shooter.transform.position);
+        // Ignore direction along y-axis
+        direction.y = 0;
         // Add a slight deviation to the direction
         direction.x += Random.Range(-0.1f, 0.1f);
+        direction = direction.normalized;
 
-        // Ignore direction along y-axis
-        direction.y = 0.25f;
-
-        Debug.DrawRay(transform.position, direction, Color.red, 1.0f);
+        Debug.DrawRay(shooter.transform.position, direction, Color.red, 1.0f);
 
         // Instantiate a projectile
-        var projectile = Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
-        projectile.GetComponent<Rigidbody>().velocity = direction;
+        var projectile = Instantiate(projectilePrefab, shooter.transform.position, projectilePrefab.transform.rotation);
+        projectile.GetComponent<Rigidbody>().velocity = direction * range;
 
         // Rotate the projectile to face the direction, with slight random deviation
-        projectile.transform.LookAt(mousePosition);
+        projectile.transform.LookAt(direction);
         projectile.transform.Rotate(Vector3.up, Random.Range(-50.0f, 50.0f));
 
         Destroy(projectile, 2.0f);
@@ -104,7 +104,7 @@ public class Player : Unit
 
         Debug.DrawRay(ray.origin, ray.direction, Color.green, 1.0f);
 
-        if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity))
+        if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, LayerMask.GetMask("Ground")))
         {
             // The Raycast hit something, return with the position.
             return (success: true, position: hitInfo.point);
