@@ -1,13 +1,11 @@
-using UnityEngine;
-
-public class DefaultGun : Gun
+public class BurstGun : Gun
 {
     protected override void Start()
     {
         base.Start();
         projectileSpeed = 10.0f;
-        projectileLife = 2.0f;
+        projectileLife = 1.0f;
 
-        fireRate = 1f;
+        fireRate = 8f;
     }
 }

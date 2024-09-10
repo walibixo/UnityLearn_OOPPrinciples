@@ -14,6 +14,8 @@ public class Player : Unit
         transform.position = new Vector3(0, -1, 0);
         speed = 4.0f;
         range = 10.0f;
+
+        Gun = Instantiate(Gun, transform);
     }
 
     private void Update()
@@ -21,7 +23,7 @@ public class Player : Unit
         moveInput.x = Input.GetAxisRaw("Horizontal") * speed;
         moveInput.z = Input.GetAxisRaw("Vertical") * speed;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             Attack();
         }
@@ -36,6 +38,9 @@ public class Player : Unit
 
     protected override void Attack()
     {
+        if (!Gun.CanShoot())
+            return;
+
         var (success, direction) = GetAimDirection();
         if (!success)
             return;

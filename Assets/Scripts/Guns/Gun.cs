@@ -6,12 +6,46 @@ public abstract class Gun : MonoBehaviour
 
     protected float projectileSpeed = 10.0f;
     protected float projectileLife = 2.0f;
+    protected float fireRate = 0.5f;
 
-    public virtual void Start()
+    [SerializeField]
+    protected float shootCooldown;
+    [SerializeField]
+    protected bool canShoot;
+
+    protected virtual void Start()
     {
     }
 
-    public virtual void Shoot(Vector3 origin, Vector3 direction)
+    protected virtual void Update()
+    {
+        if (!canShoot)
+        {
+            shootCooldown -= Time.deltaTime;
+            if (shootCooldown <= 0.0f)
+            {
+                shootCooldown = 1.0f / fireRate;
+                canShoot = true;
+            }
+        }
+    }
+
+    public virtual void Shoot(Vector3 position, Vector3 direction)
+    {
+        if (canShoot)
+        {
+            canShoot = false;
+
+            ShootOneProjectile(position, direction);
+        }
+    }
+
+    public bool CanShoot()
+    {
+        return canShoot;
+    }
+
+    protected void ShootOneProjectile(Vector3 origin, Vector3 direction)
     {
         // Instantiate a projectile
         var projectile = Instantiate(projectilePrefab, origin, projectilePrefab.transform.rotation);

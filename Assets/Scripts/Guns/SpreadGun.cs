@@ -4,19 +4,26 @@ public class SpreadGun : Gun
 {
     public int SpreadCount = 5;
 
-    public override void Start()
+    protected override void Start()
     {
         base.Start();
         projectileSpeed = 10.0f;
-        projectileLife = 2.0f;
+        projectileLife = 1.0f;
+
+        fireRate = 1.5f;
     }
 
     public override void Shoot(Vector3 position, Vector3 direction)
     {
-        for (int i = 0; i < SpreadCount; i++)
+        if (canShoot)
         {
-            var spreadDirection = Quaternion.Euler(0, Random.Range(-10, 10), 0) * direction;
-            base.Shoot(position, spreadDirection);
+            canShoot = false;
+
+            for (int i = 0; i < SpreadCount; i++)
+            {
+                var spreadDirection = Quaternion.Euler(0, Random.Range(-10, 10), 0) * direction;
+                ShootOneProjectile(position, spreadDirection);
+            }
         }
     }
 }
