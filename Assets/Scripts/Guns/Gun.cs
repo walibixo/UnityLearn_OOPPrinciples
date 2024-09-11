@@ -8,9 +8,7 @@ public abstract class Gun : MonoBehaviour
     protected float projectileLife = 2.0f;
     protected float fireRate = 0.5f;
 
-    [SerializeField]
     protected float shootCooldown;
-    [SerializeField]
     protected bool canShoot;
 
     protected virtual void Start()
@@ -49,6 +47,17 @@ public abstract class Gun : MonoBehaviour
     {
         // Instantiate a projectile
         var projectile = Instantiate(projectilePrefab, origin, projectilePrefab.transform.rotation);
+        projectile.GetComponent<Rigidbody>().velocity = direction * projectileSpeed;
+
+        // Rotate the projectile to face the direction, with slight random deviation
+        projectile.transform.forward = direction;
+        projectile.transform.Rotate(Vector3.up, Random.Range(-50.0f, 50.0f));
+
+        Destroy(projectile, projectileLife);
+    }
+
+    protected void ShootOneProjectile(GameObject projectile, Vector3 direction)
+    {
         projectile.GetComponent<Rigidbody>().velocity = direction * projectileSpeed;
 
         // Rotate the projectile to face the direction, with slight random deviation

@@ -8,8 +8,6 @@ public class GameArea : MonoBehaviour
     void Start()
     {
         bounds = GetComponent<Renderer>().bounds;
-
-        Debug.Log("Game Area: " + bounds.size);
     }
 
     public bool IsInside(Vector3 position, float padding)

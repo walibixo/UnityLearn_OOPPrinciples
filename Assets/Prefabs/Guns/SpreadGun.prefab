@@ -45,6 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 6262868507508523973, guid: 6f907888ead95cf4089a5dcef314bb65, type: 3}
-  shootCooldown: 2
-  canShoot: 1
   SpreadCount: 5

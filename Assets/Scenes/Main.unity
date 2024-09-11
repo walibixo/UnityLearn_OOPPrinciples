@@ -533,7 +533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameArea: {fileID: 639835234}
-  Gun: {fileID: 7243570344483510814, guid: daf1011f3da3776439f3320c097175c7, type: 3}
+  Gun: {fileID: 2731455006022432507, guid: d6bb59e986d654e4982370450bf0ba29, type: 3}
 --- !u!1 &2036048538
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,7 +596,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295

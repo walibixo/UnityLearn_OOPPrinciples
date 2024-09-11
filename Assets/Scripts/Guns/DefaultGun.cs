@@ -8,6 +8,6 @@ public class DefaultGun : Gun
         projectileSpeed = 10.0f;
         projectileLife = 2.0f;
 
-        fireRate = 1f;
+        fireRate = 2f;
     }
 }
