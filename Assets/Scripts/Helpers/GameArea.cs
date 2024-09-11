@@ -28,6 +28,6 @@ public class GameArea : MonoBehaviour
         float x = Random.Range(bounds.min.x + padding, bounds.max.x - padding);
         float z = Random.Range(bounds.min.z + padding, bounds.max.z - padding);
 
-        return new Vector3(x, 0, z);
+        return new Vector3(x, -1, z);
     }
 }

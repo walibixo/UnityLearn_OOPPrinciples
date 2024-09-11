@@ -13,13 +13,14 @@ public class Unit : MonoBehaviour
     protected new Rigidbody rigidbody;
     protected GameObject shooter;
 
-    public GameArea gameArea;
+    protected GameArea gameArea;
 
     protected virtual void Start()
     {
         originalScale = transform.localScale;
         rigidbody = GetComponent<Rigidbody>();
         shooter = transform.Find("Shooter").gameObject;
+        gameArea = FindObjectOfType<GameArea>();
     }
 
     protected virtual void Spawn()
