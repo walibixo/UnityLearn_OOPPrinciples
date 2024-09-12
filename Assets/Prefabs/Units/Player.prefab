@@ -10,7 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2095752022486301745, guid: 35eec9c1a814653479cbba09ef6ff45a, type: 3}
       propertyPath: m_Name
-      value: Player Variant
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095752022486301745, guid: 35eec9c1a814653479cbba09ef6ff45a, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3369075930780861175, guid: 35eec9c1a814653479cbba09ef6ff45a, type: 3}
+      propertyPath: m_Constraints
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 4837976708785710048, guid: 35eec9c1a814653479cbba09ef6ff45a, type: 3}
       propertyPath: m_LocalPosition.x

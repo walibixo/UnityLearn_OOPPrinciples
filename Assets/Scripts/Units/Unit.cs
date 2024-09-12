@@ -4,7 +4,6 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
     protected int health;
-    protected int damage;
     protected float speed;
     protected float range;
 
@@ -43,9 +42,13 @@ public class Unit : MonoBehaviour
         Debug.Log("Unit is dying");
     }
 
-    protected virtual void TakeDamage()
+    protected virtual void TakeDamage(int damage)
     {
-        Debug.Log("Unit is taking damage");
+        health -= damage;
+        if (health <= 0)
+        {
+            Die();
+        }
     }
 
     protected virtual void Heal()
@@ -56,6 +59,8 @@ public class Unit : MonoBehaviour
     protected IEnumerator SqashAndStretch()
     {
         var squashScale = originalScale * 0.8f;
+
+        transform.localScale = originalScale;
 
         // Use Lerp to smoothly transition between the original scale and the squash scale
         for (float t = 0; t < 0.05f; t += Time.deltaTime)

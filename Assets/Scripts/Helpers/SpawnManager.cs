@@ -20,7 +20,7 @@ public class SpawnManager : MonoBehaviour
         while (true)
         {
             Instantiate(enemyPrefab, gameArea.GetRandomPosition(0.5f), enemyPrefab.transform.rotation);
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(Random.Range(0.5f, 1f));
         }
     }
 }

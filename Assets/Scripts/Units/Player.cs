@@ -32,8 +32,8 @@ public class Player : Unit
     // Update is called once per frame
     void FixedUpdate()
     {
-        rigidbody.velocity = moveInput;
-        rigidbody.position = gameArea.KeepInside(rigidbody.position, 0.5f);
+        transform.Translate(moveInput * Time.deltaTime);
+        transform.position = gameArea.KeepInside(transform.position, 0.5f);
     }
 
     protected override void Attack()
