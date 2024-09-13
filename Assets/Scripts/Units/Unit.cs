@@ -39,7 +39,7 @@ public class Unit : MonoBehaviour
 
     protected virtual void Die()
     {
-        Debug.Log("Unit is dying");
+        Destroy(gameObject);
     }
 
     protected virtual void TakeDamage(int damage)

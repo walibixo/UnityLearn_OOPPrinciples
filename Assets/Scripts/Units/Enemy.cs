@@ -14,6 +14,8 @@ public class Enemy : Unit
     {
         Vector3 direction = player.position - transform.position;
         direction.Normalize();
+
+        transform.forward = direction;
         transform.Translate(direction * Time.deltaTime);
     }
 
@@ -22,7 +24,6 @@ public class Enemy : Unit
         if (other.CompareTag("Projectile"))
         {
             TakeDamage(1);
-            Destroy(gameObject);
         }
     }
 }
