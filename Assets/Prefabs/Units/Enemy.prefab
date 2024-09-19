@@ -86,3 +86,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathEffect: {fileID: 5955595854174643325, guid: 2b180ea53e39cc847ba52ffddec54ee4, type: 3}
+  deathSound: {fileID: 8300000, guid: 0650aeb760ccc2845a8d448119a34394, type: 3}

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Unit : MonoBehaviour
 {
@@ -17,12 +19,17 @@ public class Unit : MonoBehaviour
     [SerializeField]
     private GameObject deathEffect;
 
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip deathSound;
+
     protected virtual void Start()
     {
         originalScale = transform.localScale;
         rigidbody = GetComponent<Rigidbody>();
         shooter = transform.Find("Shooter").gameObject;
         gameArea = FindObjectOfType<GameArea>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     protected virtual void Spawn()
@@ -42,11 +49,15 @@ public class Unit : MonoBehaviour
 
     protected virtual void Die()
     {
+        // Play the death sound with random pitch
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.PlayOneShot(deathSound); // TODO Add Audio Manager to play the death sound
+
         if (deathEffect != null)
         {
             Instantiate(deathEffect, transform.position, Quaternion.identity);
         }
-       
+
         Destroy(gameObject);
     }
 
