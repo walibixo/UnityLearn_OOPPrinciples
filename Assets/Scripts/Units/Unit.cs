@@ -14,6 +14,9 @@ public class Unit : MonoBehaviour
 
     protected GameArea gameArea;
 
+    [SerializeField]
+    private GameObject deathEffect;
+
     protected virtual void Start()
     {
         originalScale = transform.localScale;
@@ -39,6 +42,11 @@ public class Unit : MonoBehaviour
 
     protected virtual void Die()
     {
+        if (deathEffect != null)
+        {
+            Instantiate(deathEffect, transform.position, Quaternion.identity);
+        }
+       
         Destroy(gameObject);
     }
 

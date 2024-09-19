@@ -12,11 +12,13 @@ public class Enemy : Unit
 
     private void Update()
     {
-        Vector3 direction = player.position - transform.position;
-        direction.Normalize();
+        transform.LookAt(player);
+        Vector3 direction = (player.position - transform.position).normalized;
 
-        transform.forward = direction;
+        Debug.DrawRay(transform.position, direction * 10, Color.red);
+
         transform.Translate(direction * Time.deltaTime);
+        transform.position = gameArea.KeepInside(transform.position, 0.5f);
     }
 
     protected void OnTriggerEnter(Collider other)

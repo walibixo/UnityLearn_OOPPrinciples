@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 3369075930780861175, guid: 35eec9c1a814653479cbba09ef6ff45a, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 4837976708785710048, guid: 35eec9c1a814653479cbba09ef6ff45a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -81,3 +85,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 313d27bd98d0db441944aa0aab7a8b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathEffect: {fileID: 5955595854174643325, guid: 2b180ea53e39cc847ba52ffddec54ee4, type: 3}

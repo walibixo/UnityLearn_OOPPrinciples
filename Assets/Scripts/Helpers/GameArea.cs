@@ -30,4 +30,16 @@ public class GameArea : MonoBehaviour
 
         return new Vector3(x, -1, z);
     }
+
+    public Vector3 GetRandomPosition(float padding, Vector3 avoidAreaCenter, float radiusAvoidAreaCenter)
+    {
+        Vector3 randomPosition = GetRandomPosition(padding);
+
+        while (Vector3.Distance(randomPosition, avoidAreaCenter) < radiusAvoidAreaCenter)
+        {
+            randomPosition = GetRandomPosition(padding);
+        }
+
+        return randomPosition;
+    }
 }
