@@ -19,7 +19,7 @@ public class BubbleGun : Gun
             canShoot = false;
 
             // Grow the bubble before shooting it
-            var bubble = Instantiate(projectilePrefab, position, projectilePrefab.transform.rotation);
+            var bubble = Instantiate(ProjectilePrefab, position, ProjectilePrefab.transform.rotation);
 
             // Scale the bubble up
             StartCoroutine(ScaleBubble(bubble.transform));

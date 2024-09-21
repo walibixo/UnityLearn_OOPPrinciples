@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
-    private Transform player;
+    private Transform _player;
 
     protected override void Start()
     {
@@ -11,7 +11,7 @@ public class Enemy : Unit
         speed = 2.0f;
         range = 10.0f;
 
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
 
         StartCoroutine(AttackPlayer());
     }
@@ -35,8 +35,8 @@ public class Enemy : Unit
 
     protected override void Move()
     {
-        transform.LookAt(player);
-        Vector3 direction = (player.position - transform.position).normalized;
+        transform.LookAt(_player);
+        Vector3 direction = (_player.position - transform.position).normalized;
 
         Debug.DrawRay(transform.position, direction * 10, Color.red);
 
@@ -48,14 +48,17 @@ public class Enemy : Unit
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(2.0f, 6.0f));
+            yield return new WaitForSeconds(Random.Range(4.0f, 8.0f));
 
             var originalSpeed = speed;
             speed = 0;
+
             yield return new WaitForSeconds(1.0f);
 
             Attack();
+
             yield return new WaitForSeconds(1.0f);
+
             speed = originalSpeed;
         }
     }
@@ -76,7 +79,7 @@ public class Enemy : Unit
 
     private (bool success, Vector3 direction) GetAimDirection()
     {
-        var direction = player.transform.position - shooter.transform.position;
+        var direction = _player.transform.position - shooter.transform.position;
         // Ignore direction along y-axis
         direction.y = 0;
         // Add a slight deviation to the direction

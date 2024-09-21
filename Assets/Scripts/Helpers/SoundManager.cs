@@ -4,16 +4,16 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
 {
-    private static SoundManager instance;
+    private static SoundManager _instance;
 
-    private AudioSource audioSource;
+    private AudioSource _audioSource;
 
     private void Awake()
     {
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
-            audioSource = GetComponent<AudioSource>();
+            _instance = this;
+            _audioSource = GetComponent<AudioSource>();
         }
     }
 
@@ -21,9 +21,9 @@ public class SoundManager : MonoBehaviour
     {
         if (randomPitch)
         {
-            instance.audioSource.pitch = (float)Math.Pow(1.059463f, UnityEngine.Random.Range(-6, 6));
+            _instance._audioSource.pitch = (float)Math.Pow(1.059463f, UnityEngine.Random.Range(-6, 6));
         }
 
-        instance.audioSource.PlayOneShot(clip);
+        _instance._audioSource.PlayOneShot(clip);
     }
 }

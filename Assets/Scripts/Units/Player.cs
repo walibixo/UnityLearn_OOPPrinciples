@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Player : Unit
 {
-    private Vector3 moveInput;
+    private Vector3 _moveInput;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -16,8 +16,8 @@ public class Player : Unit
 
     private void Update()
     {
-        moveInput.x = Input.GetAxisRaw("Horizontal") * speed;
-        moveInput.z = Input.GetAxisRaw("Vertical") * speed;
+        _moveInput.x = Input.GetAxisRaw("Horizontal") * speed;
+        _moveInput.z = Input.GetAxisRaw("Vertical") * speed;
 
         if (Input.GetMouseButton(0))
         {
@@ -44,7 +44,7 @@ public class Player : Unit
 
     protected override void Move()
     {
-        transform.Translate(moveInput * Time.deltaTime);
+        transform.Translate(_moveInput * Time.deltaTime);
         transform.position = gameArea.KeepInside(transform.position, 0.5f);
     }
 

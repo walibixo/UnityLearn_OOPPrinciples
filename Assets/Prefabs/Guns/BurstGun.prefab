@@ -44,7 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c27a531bd753c47acf5d133212aeeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 6262868507508523973, guid: 6f907888ead95cf4089a5dcef314bb65, type: 3}
-  shootCooldown: 0
-  canShoot: 1
-  BurstCount: 3
+  <ProjectilePrefab>k__BackingField: {fileID: 6262868507508523973, guid: 6f907888ead95cf4089a5dcef314bb65, type: 3}

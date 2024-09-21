@@ -216,6 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 179fdf16ea5717942befc03677ce722c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _endOfWave: 60
 --- !u!1 &284840894
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,9 +456,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b093056ec9d3ae4c80addf988b09217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
 --- !u!199 &639835235
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -540,7 +538,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639835229}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 60
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -5558,9 +5556,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 419403b8dd062c8439679da516001603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 7256732935175209814, guid: f2a606b0ab14ebd4d863d0a5b089ecdf, type: 3}
-  enemyPrefab: {fileID: 4235897721940777712, guid: f8d01784ad9093f4995149a592d66a39, type: 3}
-  bossPrefab: {fileID: 6686746937609508835, guid: 45c8cc9f65dcddc44a06209e0829639b, type: 3}
+  _playerPrefab: {fileID: 7256732935175209814, guid: f2a606b0ab14ebd4d863d0a5b089ecdf, type: 3}
+  _enemyPrefab: {fileID: 4235897721940777712, guid: f8d01784ad9093f4995149a592d66a39, type: 3}
+  _bossPrefab: {fileID: 6686746937609508835, guid: 45c8cc9f65dcddc44a06209e0829639b, type: 3}
 --- !u!1 &947297953
 GameObject:
   m_ObjectHideFlags: 0

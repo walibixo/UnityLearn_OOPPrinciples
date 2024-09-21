@@ -3,24 +3,27 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject playerPrefab;
-    public GameObject enemyPrefab;
-    public GameObject bossPrefab;
+    [SerializeField]
+    private GameObject _playerPrefab;
+    [SerializeField]
+    private GameObject _enemyPrefab;
+    [SerializeField]
+    private GameObject _bossPrefab;
 
-    private GameArea gameArea;
-    private GameObject player;
+    private GameArea _gameArea;
+    private GameObject _player;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameArea = FindObjectOfType<GameArea>();
+        _gameArea = FindObjectOfType<GameArea>();
 
-        player = SpawnPlayer();
+        _player = SpawnPlayer();
     }
 
     private GameObject SpawnPlayer()
     {
-        return Instantiate(playerPrefab, playerPrefab.transform.position, playerPrefab.transform.rotation);
+        return Instantiate(_playerPrefab, _playerPrefab.transform.position, _playerPrefab.transform.rotation);
     }
 
     public void StartSpawnEnemies()
@@ -44,11 +47,11 @@ public class SpawnManager : MonoBehaviour
 
     private GameObject SpawnEnemy()
     {
-        return Instantiate(enemyPrefab, gameArea.GetRandomPosition(0.5f, player.transform.position, 6.0f), enemyPrefab.transform.rotation);
+        return Instantiate(_enemyPrefab, _gameArea.GetRandomPosition(0.5f, _player.transform.position, 6.0f), _enemyPrefab.transform.rotation);
     }
 
     public void SpawnBoss()
     {
-        Instantiate(bossPrefab, gameArea.GetRandomPosition(0.5f, player.transform.position, 6.0f), bossPrefab.transform.rotation);
+        Instantiate(_bossPrefab, _gameArea.GetRandomPosition(0.5f, _player.transform.position, 6.0f), _bossPrefab.transform.rotation);
     }
 }

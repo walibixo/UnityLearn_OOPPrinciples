@@ -2,31 +2,31 @@ using UnityEngine;
 
 public class GameArea : MonoBehaviour
 {
-    public Bounds bounds;
+    public Bounds Bounds { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
-        bounds = GetComponent<Renderer>().bounds;
+        Bounds = GetComponent<Renderer>().bounds;
     }
 
     public bool IsInside(Vector3 position, float padding)
     {
-        return bounds.Contains(new Vector3(position.x - padding, 0, position.z + padding));
+        return Bounds.Contains(new Vector3(position.x - padding, 0, position.z + padding));
     }
 
     public Vector3 KeepInside(Vector3 position, float padding)
     {
-        float x = Mathf.Clamp(position.x, bounds.min.x + padding, bounds.max.x - padding);
-        float z = Mathf.Clamp(position.z, bounds.min.z + padding, bounds.max.z - padding);
+        float x = Mathf.Clamp(position.x, Bounds.min.x + padding, Bounds.max.x - padding);
+        float z = Mathf.Clamp(position.z, Bounds.min.z + padding, Bounds.max.z - padding);
 
-        return new Vector3(x, 0, z);
+        return new Vector3(x, position.y, z);
     }
 
     public Vector3 GetRandomPosition(float padding)
     {
-        float x = Random.Range(bounds.min.x + padding, bounds.max.x - padding);
-        float z = Random.Range(bounds.min.z + padding, bounds.max.z - padding);
+        float x = Random.Range(Bounds.min.x + padding, Bounds.max.x - padding);
+        float z = Random.Range(Bounds.min.z + padding, Bounds.max.z - padding);
 
         return new Vector3(x, -1, z);
     }

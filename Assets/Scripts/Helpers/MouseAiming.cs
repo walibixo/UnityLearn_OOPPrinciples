@@ -2,16 +2,16 @@ using UnityEngine;
 
 public static class MouseAiming
 {
-    private static readonly Camera mainCamera;
+    private static readonly Camera _mainCamera;
 
     static MouseAiming()
     {
-        mainCamera = Camera.main;
+        _mainCamera = Camera.main;
     }
 
     public static (bool success, Vector3 position) GetMousePosition()
     {
-        var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, LayerMask.GetMask("Ground")))
         {
