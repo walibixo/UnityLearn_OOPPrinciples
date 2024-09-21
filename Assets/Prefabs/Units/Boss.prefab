@@ -877,3 +877,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c589d9cba58c23e4596d27bc804c8892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Gun>k__BackingField: {fileID: 7402529484520236026, guid: 9a8b538ca80b1aa4f988115390fae396, type: 3}
+  deathEffect: {fileID: 0}
+  deathSound: {fileID: 0}

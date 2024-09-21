@@ -2,14 +2,24 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public int damage = 1;
-    public bool isPiercing = false;
+    public int Damage { get; private set; } = 1;
+
+    public bool FromPlayer { get; private set; } = false;
+
+    [SerializeField]
+    private bool _isPiercing;
+
+    public void Init(bool fromPlayer)
+    {
+        FromPlayer = fromPlayer;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if ((FromPlayer && other.CompareTag("Enemy"))
+            || (!FromPlayer && other.CompareTag("Player")))
         {
-            if (isPiercing)
+            if (_isPiercing)
                 return;
 
             Destroy(gameObject);

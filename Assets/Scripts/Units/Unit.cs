@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class Unit : MonoBehaviour
 {
@@ -16,10 +14,12 @@ public class Unit : MonoBehaviour
 
     protected GameArea gameArea;
 
+    [field: SerializeField]
+    protected Gun Gun { get; private set; }
+
     [SerializeField]
     private GameObject deathEffect;
 
-    private AudioSource audioSource;
     [SerializeField]
     private AudioClip deathSound;
 
@@ -29,7 +29,8 @@ public class Unit : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         shooter = transform.Find("Shooter").gameObject;
         gameArea = FindObjectOfType<GameArea>();
-        audioSource = GetComponent<AudioSource>();
+
+        SetGun(Gun);
     }
 
     protected virtual void Spawn()
@@ -47,18 +48,6 @@ public class Unit : MonoBehaviour
         Debug.Log("Unit is attacking");
     }
 
-    protected virtual void Die()
-    {
-        SoundManager.PlaySound(deathSound, true);
-
-        if (deathEffect != null)
-        {
-            Instantiate(deathEffect, transform.position, Quaternion.identity);
-        }
-
-        Destroy(gameObject);
-    }
-
     protected virtual void TakeDamage(int damage)
     {
         health -= damage;
@@ -68,9 +57,16 @@ public class Unit : MonoBehaviour
         }
     }
 
-    protected virtual void Heal()
+    protected void Die()
     {
-        Debug.Log("Unit is healing");
+        SoundManager.PlaySound(deathSound, true);
+
+        if (deathEffect != null)
+        {
+            Instantiate(deathEffect, transform.position, Quaternion.identity);
+        }
+
+        Destroy(gameObject);
     }
 
     protected IEnumerator SqashAndStretch()
@@ -98,5 +94,10 @@ public class Unit : MonoBehaviour
             transform.localScale = Vector3.Lerp(stretchScale, originalScale, t / 0.05f);
             yield return new WaitForEndOfFrame();
         }
+    }
+
+    private void SetGun(Gun gun = null)
+    {
+        Gun = Instantiate(gun, transform);
     }
 }

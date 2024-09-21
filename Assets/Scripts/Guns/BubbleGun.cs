@@ -12,7 +12,7 @@ public class BubbleGun : Gun
         fireRate = 2.5f;
     }
 
-    public override void Shoot(Vector3 position, Vector3 direction)
+    public override void Shoot(Vector3 position, Vector3 direction, bool fromPlayer)
     {
         if (canShoot)
         {
@@ -25,7 +25,7 @@ public class BubbleGun : Gun
             StartCoroutine(ScaleBubble(bubble.transform));
 
             // Shoot the bubble
-            ShootOneProjectile(bubble, direction);
+            ShootOneProjectile(bubble, direction, fromPlayer);
         }
     }
 

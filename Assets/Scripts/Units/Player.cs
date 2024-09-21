@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Player : Unit
 {
-    public Gun Gun;
-
     private Vector3 moveInput;
 
     // Start is called before the first frame update
@@ -14,8 +12,6 @@ public class Player : Unit
         transform.position = new Vector3(0, -1, 0);
         speed = 4.0f;
         range = 10.0f;
-
-        Gun = Instantiate(Gun, transform);
     }
 
     private void Update()
@@ -29,8 +25,24 @@ public class Player : Unit
         }
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Projectile"))
+        {
+            var projectile = other.GetComponent<Projectile>();
+            if (!projectile.FromPlayer)
+            {
+                TakeDamage(projectile.Damage);
+            }
+        }
+    }
+
+    protected override void Move()
     {
         transform.Translate(moveInput * Time.deltaTime);
         transform.position = gameArea.KeepInside(transform.position, 0.5f);
@@ -45,7 +57,7 @@ public class Player : Unit
         if (!success)
             return;
 
-        Gun.Shoot(shooter.transform.position, direction);
+        Gun.Shoot(shooter.transform.position, direction, true);
 
         StartCoroutine(SqashAndStretch());
     }

@@ -85,5 +85,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23986d920a42c2a49a1d335812e9485e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Gun>k__BackingField: {fileID: 7243570344483510814, guid: daf1011f3da3776439f3320c097175c7, type: 3}
   deathEffect: {fileID: 5955595854174643325, guid: 2b180ea53e39cc847ba52ffddec54ee4, type: 3}
-  Gun: {fileID: 7243570344483510814, guid: daf1011f3da3776439f3320c097175c7, type: 3}
+  deathSound: {fileID: 0}

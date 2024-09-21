@@ -13,7 +13,7 @@ public class SpreadGun : Gun
         fireRate = 1.5f;
     }
 
-    public override void Shoot(Vector3 position, Vector3 direction)
+    public override void Shoot(Vector3 position, Vector3 direction, bool fromPlayer)
     {
         if (canShoot)
         {
@@ -22,7 +22,7 @@ public class SpreadGun : Gun
             for (int i = 0; i < SpreadCount; i++)
             {
                 var spreadDirection = Quaternion.Euler(0, Random.Range(-10, 10), 0) * direction;
-                ShootOneProjectile(position, spreadDirection);
+                ShootOneProjectile(position, spreadDirection, fromPlayer);
             }
         }
     }

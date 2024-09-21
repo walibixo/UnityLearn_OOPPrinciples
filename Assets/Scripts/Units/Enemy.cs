@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : Unit
@@ -7,25 +8,81 @@ public class Enemy : Unit
     protected override void Start()
     {
         base.Start();
+        speed = 2.0f;
+        range = 10.0f;
+
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        StartCoroutine(AttackPlayer());
     }
 
-    private void Update()
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Projectile"))
+        {
+            var projectile = other.GetComponent<Projectile>();
+            if (projectile.FromPlayer)
+            {
+                TakeDamage(projectile.Damage);
+            }
+        }
+    }
+
+    protected override void Move()
     {
         transform.LookAt(player);
         Vector3 direction = (player.position - transform.position).normalized;
 
         Debug.DrawRay(transform.position, direction * 10, Color.red);
 
-        transform.Translate(direction * Time.deltaTime);
+        transform.Translate(speed * Time.deltaTime * direction);
         transform.position = gameArea.KeepInside(transform.position, 0.5f);
     }
 
-    protected void OnTriggerEnter(Collider other)
+    private IEnumerator AttackPlayer()
     {
-        if (other.CompareTag("Projectile"))
+        while (true)
         {
-            TakeDamage(1);
+            yield return new WaitForSeconds(Random.Range(2.0f, 6.0f));
+
+            var originalSpeed = speed;
+            speed = 0;
+            yield return new WaitForSeconds(1.0f);
+
+            Attack();
+            yield return new WaitForSeconds(1.0f);
+            speed = originalSpeed;
         }
+    }
+
+    protected override void Attack()
+    {
+        if (!Gun.CanShoot())
+            return;
+
+        var (success, direction) = GetAimDirection();
+        if (!success)
+            return;
+
+        Gun.Shoot(shooter.transform.position, direction, false);
+
+        StartCoroutine(SqashAndStretch());
+    }
+
+    private (bool success, Vector3 direction) GetAimDirection()
+    {
+        var direction = player.transform.position - shooter.transform.position;
+        // Ignore direction along y-axis
+        direction.y = 0;
+        // Add a slight deviation to the direction
+        direction.x += Random.Range(-0.1f, 0.1f);
+        direction = direction.normalized;
+
+        return (true, direction);
     }
 }
