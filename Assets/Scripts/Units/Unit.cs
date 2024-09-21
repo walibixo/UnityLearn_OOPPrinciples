@@ -49,9 +49,7 @@ public class Unit : MonoBehaviour
 
     protected virtual void Die()
     {
-        // Play the death sound with random pitch
-        audioSource.pitch = Random.Range(0.9f, 1.1f);
-        audioSource.PlayOneShot(deathSound); // TODO Add Audio Manager to play the death sound
+        SoundManager.PlaySound(deathSound, true);
 
         if (deathEffect != null)
         {
