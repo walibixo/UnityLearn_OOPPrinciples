@@ -41,17 +41,28 @@ public class SpawnManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(0.5f, 1f));
+
             SpawnEnemy();
         }
     }
 
     private GameObject SpawnEnemy()
     {
+        if (_player == null)
+        {
+            return null;
+        }
+
         return Instantiate(_enemyPrefab, _gameArea.GetRandomPosition(0.5f, _player.transform.position, 6.0f), _enemyPrefab.transform.rotation);
     }
 
-    public void SpawnBoss()
+    public GameObject SpawnBoss()
     {
-        Instantiate(_bossPrefab, _gameArea.GetRandomPosition(0.5f, _player.transform.position, 6.0f), _bossPrefab.transform.rotation);
+        if (_player == null)
+        {
+            return null;
+        }
+
+        return Instantiate(_bossPrefab, _gameArea.GetRandomPosition(0.5f, _player.transform.position, 6.0f), _bossPrefab.transform.rotation);
     }
 }

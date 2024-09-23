@@ -878,5 +878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Gun>k__BackingField: {fileID: 7402529484520236026, guid: 9a8b538ca80b1aa4f988115390fae396, type: 3}
-  deathEffect: {fileID: 0}
-  deathSound: {fileID: 0}
+  <Health>k__BackingField: 0
+  <Speed>k__BackingField: 0
+  _deathEffect: {fileID: 5955595854174643325, guid: 2b180ea53e39cc847ba52ffddec54ee4, type: 3}
+  _deathSound: {fileID: 8300000, guid: 0650aeb760ccc2845a8d448119a34394, type: 3}

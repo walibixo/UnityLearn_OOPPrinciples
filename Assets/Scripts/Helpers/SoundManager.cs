@@ -13,8 +13,9 @@ public class SoundManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
-            _audioSource = GetComponent<AudioSource>();
         }
+
+        _audioSource = GetComponent<AudioSource>();
     }
 
     public static void PlaySound(AudioClip clip, bool randomPitch = false)

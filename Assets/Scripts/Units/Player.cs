@@ -2,22 +2,31 @@ using UnityEngine;
 
 public class Player : Unit
 {
+    private GameManager _gameManager;
+
     private Vector3 _moveInput;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        _gameManager = FindObjectOfType<GameManager>();
+    }
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
 
+        Init(1, 4.0f);
+
         transform.position = new Vector3(0, -1, 0);
-        speed = 4.0f;
-        range = 10.0f;
     }
 
     private void Update()
     {
-        _moveInput.x = Input.GetAxisRaw("Horizontal") * speed;
-        _moveInput.z = Input.GetAxisRaw("Vertical") * speed;
+        _moveInput.x = Input.GetAxisRaw("Horizontal") * Speed;
+        _moveInput.z = Input.GetAxisRaw("Vertical") * Speed;
 
         if (Input.GetMouseButton(0))
         {
@@ -45,7 +54,8 @@ public class Player : Unit
     protected override void Move()
     {
         transform.Translate(_moveInput * Time.deltaTime);
-        transform.position = gameArea.KeepInside(transform.position, 0.5f);
+
+        KeepInsideGameArea();
     }
 
     protected override void Attack()
@@ -60,6 +70,13 @@ public class Player : Unit
         Gun.Shoot(shooter.transform.position, direction, true);
 
         StartCoroutine(SqashAndStretch());
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+
+        _gameManager.GameOver();
     }
 
     private (bool success, Vector3 direction) GetAimDirection()

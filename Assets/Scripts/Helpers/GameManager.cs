@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,11 +10,14 @@ public class GameManager : MonoBehaviour
 
     public bool IsGameOver { get; private set; }
 
+    private void Awake()
+    {
+        _spawnManager = FindObjectOfType<SpawnManager>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        _spawnManager = FindObjectOfType<SpawnManager>();
-
         _spawnManager.StartSpawnEnemies();
     }
 
@@ -25,5 +29,10 @@ public class GameManager : MonoBehaviour
             _spawnManager.SpawnBoss();
             _endOfWave = float.MaxValue;
         }
+    }
+
+    public void GameOver()
+    {
+        IsGameOver = true;
     }
 }

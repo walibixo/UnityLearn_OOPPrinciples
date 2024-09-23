@@ -3,15 +3,22 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
-    private Transform _player;
+    private GameObject _player;
+
+    private bool _isStopped;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        _player = GameObject.FindGameObjectWithTag("Player");
+    }
 
     protected override void Start()
     {
         base.Start();
-        speed = 2.0f;
-        range = 10.0f;
 
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        Init(1, 2.0f);
 
         StartCoroutine(AttackPlayer());
     }
@@ -35,13 +42,21 @@ public class Enemy : Unit
 
     protected override void Move()
     {
-        transform.LookAt(_player);
-        Vector3 direction = (_player.position - transform.position).normalized;
+        if (_player == null)
+            return;
 
-        Debug.DrawRay(transform.position, direction * 10, Color.red);
+        transform.LookAt(_player.transform);
 
-        transform.Translate(speed * Time.deltaTime * direction);
-        transform.position = gameArea.KeepInside(transform.position, 0.5f);
+        if (!_isStopped)
+        {
+            Vector3 direction = (_player.transform.position - transform.position).normalized;
+
+            Debug.DrawRay(transform.position, direction * 10, Color.red);
+
+            transform.Translate(Speed * Time.deltaTime * direction);
+        }
+
+        KeepInsideGameArea();
     }
 
     private IEnumerator AttackPlayer()
@@ -50,8 +65,7 @@ public class Enemy : Unit
         {
             yield return new WaitForSeconds(Random.Range(4.0f, 8.0f));
 
-            var originalSpeed = speed;
-            speed = 0;
+            _isStopped = true;
 
             yield return new WaitForSeconds(1.0f);
 
@@ -59,7 +73,7 @@ public class Enemy : Unit
 
             yield return new WaitForSeconds(1.0f);
 
-            speed = originalSpeed;
+            _isStopped = false;
         }
     }
 
@@ -79,6 +93,9 @@ public class Enemy : Unit
 
     private (bool success, Vector3 direction) GetAimDirection()
     {
+        if (_player == null)
+            return (false, Vector3.zero);
+
         var direction = _player.transform.position - shooter.transform.position;
         // Ignore direction along y-axis
         direction.y = 0;

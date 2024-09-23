@@ -3,39 +3,58 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    protected int health;
-    protected float speed;
-    protected float range;
-
     private Vector3 _originalScale;
 
-    protected Rigidbody _rigidbody;
+    private GameArea _gameArea;
     protected GameObject shooter;
-
-    protected GameArea gameArea;
 
     [field: SerializeField]
     protected Gun Gun { get; private set; }
 
-    [SerializeField]
-    private GameObject deathEffect;
+    [field: SerializeField]
+    protected int Health { get; private set; }
+
+    [field: SerializeField]
+    protected float Speed { get; private set; }
 
     [SerializeField]
-    private AudioClip deathSound;
+    private GameObject _deathEffect;
+
+    [SerializeField]
+    private AudioClip _deathSound;
+
+    protected virtual void Awake()
+    {
+        _gameArea = FindObjectOfType<GameArea>();
+    }
 
     protected virtual void Start()
     {
         _originalScale = transform.localScale;
-        _rigidbody = GetComponent<Rigidbody>();
         shooter = transform.Find("Shooter").gameObject;
-        gameArea = FindObjectOfType<GameArea>();
 
         SetGun(Gun);
+    }
+
+    protected void Init(int health, float speed)
+    {
+        Health = health;
+        Speed = speed;
+    }
+
+    private void SetGun(Gun gun)
+    {
+        Gun = Instantiate(gun, transform);
     }
 
     protected virtual void Move()
     {
         Debug.Log("Unit is moving");
+    }
+
+    protected void KeepInsideGameArea(float padding = 0.5f)
+    {
+        transform.position = _gameArea.KeepInside(transform.position, padding);
     }
 
     protected virtual void Attack()
@@ -45,20 +64,20 @@ public class Unit : MonoBehaviour
 
     protected virtual void TakeDamage(int damage)
     {
-        health -= damage;
-        if (health <= 0)
+        Health -= damage;
+        if (Health <= 0)
         {
             Die();
         }
     }
 
-    protected void Die()
+    protected virtual void Die()
     {
-        SoundManager.PlaySound(deathSound, true);
+        SoundManager.PlaySound(_deathSound, true);
 
-        if (deathEffect != null)
+        if (_deathEffect != null)
         {
-            Instantiate(deathEffect, transform.position, Quaternion.identity);
+            Instantiate(_deathEffect, transform.position, Quaternion.identity);
         }
 
         Destroy(gameObject);
@@ -91,8 +110,4 @@ public class Unit : MonoBehaviour
         }
     }
 
-    private void SetGun(Gun gun = null)
-    {
-        Gun = Instantiate(gun, transform);
-    }
 }
