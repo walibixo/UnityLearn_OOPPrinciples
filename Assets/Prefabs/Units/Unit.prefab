@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ed641e1058f7b44a284f812721e9b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterLevel: 0
-  floatStrength: 10
+  _waterLevel: 0.2
+  _floatStrength: 20
 --- !u!54 &3369075930780861175
 Rigidbody:
   m_ObjectHideFlags: 0

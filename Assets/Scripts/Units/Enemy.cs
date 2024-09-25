@@ -49,7 +49,9 @@ public class Enemy : Unit
 
         if (!_isStopped)
         {
-            Vector3 direction = (_player.transform.position - transform.position).normalized;
+            Vector3 direction = _player.transform.position - transform.position;
+            direction.y = 0;
+            direction = direction.normalized;
 
             Debug.DrawRay(transform.position, direction * 10, Color.red);
 
@@ -86,7 +88,7 @@ public class Enemy : Unit
         if (!success)
             return;
 
-        Gun.Shoot(shooter.transform.position, direction, false);
+        Gun.Shoot(ShooterPosition, direction, false);
 
         StartCoroutine(SqashAndStretch());
     }
@@ -96,7 +98,7 @@ public class Enemy : Unit
         if (_player == null)
             return (false, Vector3.zero);
 
-        var direction = _player.transform.position - shooter.transform.position;
+        var direction = _player.transform.position - ShooterPosition;
         // Ignore direction along y-axis
         direction.y = 0;
         // Add a slight deviation to the direction

@@ -3,9 +3,7 @@ public class BurstGun : Gun
     protected override void Start()
     {
         base.Start();
-        projectileSpeed = 10.0f;
-        projectileLife = 1.0f;
 
-        fireRate = 8f;
+        Init(10.0f, 1.0f, 8f);
     }
 }

@@ -67,7 +67,7 @@ public class Player : Unit
         if (!success)
             return;
 
-        Gun.Shoot(shooter.transform.position, direction, true);
+        Gun.Shoot(ShooterPosition, direction, true);
 
         StartCoroutine(SqashAndStretch());
     }
@@ -86,7 +86,7 @@ public class Player : Unit
         if (!success)
             return (false, Vector3.zero);
 
-        var direction = mousePosition - shooter.transform.position;
+        var direction = mousePosition - ShooterPosition;
         // Ignore direction along y-axis
         direction.y = 0;
         // Add a slight deviation to the direction

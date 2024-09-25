@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    private Vector3 _originalScale;
-
     private GameArea _gameArea;
-    protected GameObject shooter;
+    private Vector3 _originalScale;
+    private GameObject _shooter;
+    protected Vector3 ShooterPosition => _shooter.transform.position;
 
     [field: SerializeField]
     protected Gun Gun { get; private set; }
@@ -26,13 +26,12 @@ public class Unit : MonoBehaviour
     protected virtual void Awake()
     {
         _gameArea = FindObjectOfType<GameArea>();
+        _originalScale = transform.localScale;
+        _shooter = transform.Find("Shooter").gameObject;
     }
 
     protected virtual void Start()
     {
-        _originalScale = transform.localScale;
-        shooter = transform.Find("Shooter").gameObject;
-
         SetGun(Gun);
     }
 

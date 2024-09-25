@@ -7,17 +7,13 @@ public class BubbleGun : Gun
     {
         base.Start();
 
-        projectileSpeed = 5.0f;
-        projectileLife = 1.5f;
-        fireRate = 2.5f;
+        Init(5.0f, 1.5f, 2.5f);
     }
 
     public override void Shoot(Vector3 position, Vector3 direction, bool fromPlayer)
     {
-        if (canShoot)
+        if (TryToShoot())
         {
-            canShoot = false;
-
             // Grow the bubble before shooting it
             var bubble = Instantiate(ProjectilePrefab, position, ProjectilePrefab.transform.rotation);
 

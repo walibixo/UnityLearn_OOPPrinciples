@@ -72,6 +72,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9162136530443016326, guid: 35eec9c1a814653479cbba09ef6ff45a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3fdc93ba93cc3a048a43d157bad8246e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -97,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 313d27bd98d0db441944aa0aab7a8b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Gun>k__BackingField: {fileID: 7243570344483510814, guid: daf1011f3da3776439f3320c097175c7, type: 3}
+  <Gun>k__BackingField: {fileID: 1474012372089466103, guid: 134bf6479da1f18469ac9ed2ddc4508a, type: 3}
   <Health>k__BackingField: 0
   <Speed>k__BackingField: 0
   _deathEffect: {fileID: 5955595854174643325, guid: 2b180ea53e39cc847ba52ffddec54ee4, type: 3}

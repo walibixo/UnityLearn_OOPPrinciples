@@ -5,9 +5,7 @@ public class DefaultGun : Gun
     protected override void Start()
     {
         base.Start();
-        projectileSpeed = 10.0f;
-        projectileLife = 2.0f;
 
-        fireRate = 2f;
+        Init(10.0f, 2.0f, 2f);
     }
 }

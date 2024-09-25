@@ -8,18 +8,14 @@ public class SpreadGun : Gun
     protected override void Start()
     {
         base.Start();
-        projectileSpeed = 10.0f;
-        projectileLife = 1.0f;
 
-        fireRate = 1.5f;
+        Init(10.0f, 1.0f, 1.5f);
     }
 
     public override void Shoot(Vector3 position, Vector3 direction, bool fromPlayer)
     {
-        if (canShoot)
+        if (TryToShoot())
         {
-            canShoot = false;
-
             for (int i = 0; i < _spreadCount; i++)
             {
                 var spreadDirection = Quaternion.Euler(0, Random.Range(-10, 10), 0) * direction;

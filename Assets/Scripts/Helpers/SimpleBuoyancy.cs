@@ -24,6 +24,12 @@ public class SimpleBuoyancy : MonoBehaviour
         {
             _rigidBody.AddForce(difference * _floatStrength * Vector3.up, ForceMode.Force);
         }
+        else if (difference < 0)
+        {
+            var position = transform.position;
+            position.y = _waterLevel;
+            transform.position = position;
+        }
     }
 }
 
