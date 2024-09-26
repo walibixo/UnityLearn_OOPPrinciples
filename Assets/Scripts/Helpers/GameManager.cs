@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -6,7 +7,10 @@ public class GameManager : MonoBehaviour
     private SceneTransition _sceneTransition;
 
     [SerializeField]
+    private TextMeshProUGUI _counterText;
+
     private float _endOfWave = 60.0f;
+    private bool _waveEnded = false;
 
     public bool IsGameOver { get; private set; }
 
@@ -26,13 +30,23 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_waveEnded)
+            return;
+
         _endOfWave -= Time.deltaTime;
 
         if (_endOfWave <= 0)
         {
+            _waveEnded = true;
+
             _spawnManager.StopSpawnEnemies();
             _spawnManager.SpawnBoss();
-            _endOfWave = float.MaxValue;
+
+            _counterText.text = "SURVIVE: (è>é)";
+        }
+        else
+        {
+            _counterText.text = $"SURVIVE: {_endOfWave:0}s";
         }
     }
 

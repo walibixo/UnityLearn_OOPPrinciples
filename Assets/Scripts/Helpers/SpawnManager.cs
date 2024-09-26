@@ -15,6 +15,9 @@ public class SpawnManager : MonoBehaviour
     private GameArea _gameArea;
     private GameObject _player;
 
+    private bool _spawnEnemies = false;
+    private bool _spawnPowerups = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,17 +33,25 @@ public class SpawnManager : MonoBehaviour
 
     public void StartSpawnEnemies()
     {
+        if (_spawnEnemies) return;
+
+        _spawnEnemies = true;
+
         StartCoroutine(SpawnEnemies());
     }
 
     public void StopSpawnEnemies()
     {
+        if (!_spawnEnemies) return;
+
+        _spawnEnemies = false;
+
         StopCoroutine(SpawnEnemies());
     }
 
     private IEnumerator SpawnEnemies()
     {
-        while (true)
+        while (_spawnEnemies)
         {
             yield return new WaitForSeconds(Random.Range(0.5f, 1f));
 
@@ -70,17 +81,25 @@ public class SpawnManager : MonoBehaviour
 
     public void StartSpawnPowerups()
     {
+        if (_spawnPowerups) return;
+
+        _spawnPowerups = true;
+
         StartCoroutine(SpawnPowerups());
     }
 
     public void StopSpawnPowerups()
     {
+        if (!_spawnPowerups) return;
+
+        _spawnPowerups = false;
+
         StopCoroutine(SpawnPowerups());
     }
 
     private IEnumerator SpawnPowerups()
     {
-        while (true)
+        while (_spawnPowerups)
         {
             yield return new WaitForSeconds(Random.Range(4.0f, 10.0f));
 
