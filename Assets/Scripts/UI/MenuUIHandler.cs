@@ -1,12 +1,18 @@
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MenuUIHandler : MonoBehaviour
 {
+    private SceneTransition _sceneTransition;
+
+    private void Awake()
+    {
+        _sceneTransition = FindObjectOfType<SceneTransition>();
+    }
+
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
+        _sceneTransition.LoadScene(1);
     }
 
     public void ExitGame()
