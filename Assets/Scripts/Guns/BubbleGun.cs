@@ -34,7 +34,7 @@ public class BubbleGun : Gun
         Vector3 initialScale = Vector3.zero;
         Vector3 targetScale = Vector3.one * 2;
 
-        while (elapsedTime < duration)
+        while (elapsedTime < duration && bubbleTransform != null)
         {
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / duration);
@@ -42,7 +42,8 @@ public class BubbleGun : Gun
             yield return null;
         }
 
-        bubbleTransform.localScale = targetScale;
+        if (bubbleTransform != null)
+            bubbleTransform.localScale = targetScale;
     }
 
 }

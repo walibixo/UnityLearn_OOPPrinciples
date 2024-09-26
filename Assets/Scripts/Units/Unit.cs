@@ -41,7 +41,7 @@ public class Unit : MonoBehaviour
         Speed = speed;
     }
 
-    private void SetGun(Gun gun)
+    protected void SetGun(Gun gun)
     {
         Gun = Instantiate(gun, transform);
     }

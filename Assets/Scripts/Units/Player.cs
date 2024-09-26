@@ -49,6 +49,14 @@ public class Player : Unit
                 TakeDamage(projectile.Damage);
             }
         }
+
+        if (other.CompareTag("Powerup"))
+        {
+            var powerup = other.GetComponent<Powerup>();
+            SetGun(powerup.Gun);
+
+            Destroy(other.gameObject);
+        }
     }
 
     protected override void Move()

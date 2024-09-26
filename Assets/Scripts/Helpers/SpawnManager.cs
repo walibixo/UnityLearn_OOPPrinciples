@@ -9,6 +9,8 @@ public class SpawnManager : MonoBehaviour
     private GameObject _enemyPrefab;
     [SerializeField]
     private GameObject _bossPrefab;
+    [SerializeField]
+    private GameObject[] _powerupPrefabs;
 
     private GameArea _gameArea;
     private GameObject _player;
@@ -64,5 +66,36 @@ public class SpawnManager : MonoBehaviour
         }
 
         return Instantiate(_bossPrefab, _gameArea.GetRandomPosition(0.5f, _player.transform.position, 6.0f), _bossPrefab.transform.rotation);
+    }
+
+    public void StartSpawnPowerups()
+    {
+        StartCoroutine(SpawnPowerups());
+    }
+
+    public void StopSpawnPowerups()
+    {
+        StopCoroutine(SpawnPowerups());
+    }
+
+    private IEnumerator SpawnPowerups()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(4.0f, 10.0f));
+
+            SpawnPowerup();
+        }
+    }
+
+    public GameObject SpawnPowerup()
+    {
+        if (_player == null)
+        {
+            return null;
+        }
+
+        var powerupPrefab = _powerupPrefabs[Random.Range(0, _powerupPrefabs.Length)];
+        return Instantiate(powerupPrefab, _gameArea.GetRandomPosition(0.5f, _player.transform.position, 6.0f), powerupPrefab.transform.rotation);
     }
 }

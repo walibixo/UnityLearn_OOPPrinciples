@@ -20,12 +20,15 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _spawnManager.StartSpawnEnemies();
+        _spawnManager.StartSpawnPowerups();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time >= _endOfWave)
+        _endOfWave -= Time.deltaTime;
+
+        if (_endOfWave <= 0)
         {
             _spawnManager.StopSpawnEnemies();
             _spawnManager.SpawnBoss();
