@@ -9,7 +9,7 @@ public class Boss : Enemy
     {
         base.Start();
 
-        Init(20, 4.0f);
+        Init(100, 4.0f);
     }
 
     private void OnTriggerEnter(Collider other)
