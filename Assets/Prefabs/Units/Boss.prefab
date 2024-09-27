@@ -881,4 +881,5 @@ MonoBehaviour:
   <Health>k__BackingField: 0
   <Speed>k__BackingField: 0
   _deathEffect: {fileID: 5955595854174643325, guid: 2b180ea53e39cc847ba52ffddec54ee4, type: 3}
-  _deathSound: {fileID: 8300000, guid: 0650aeb760ccc2845a8d448119a34394, type: 3}
+  _deathSound: {fileID: 8300000, guid: e70fb464fff8bcc48aa6711f2d460426, type: 3}
+  _hitHurtSound: {fileID: 8300000, guid: 71e931d1e5dfc81479a5f1b0ca76cff4, type: 3}

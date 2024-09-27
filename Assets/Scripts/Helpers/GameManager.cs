@@ -8,9 +8,13 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI _counterText;
+    [SerializeField]
+    private GameObject _winScreen;
 
     private float _endOfWave = 60.0f;
     private bool _waveEnded = false;
+
+    private GameObject _boss;
 
     public bool IsGameOver { get; private set; }
 
@@ -30,8 +34,21 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_waveEnded)
+        if (IsGameOver)
+        {
             return;
+        }
+
+        if (_waveEnded)
+        {
+            if (_boss == null)
+            {
+                _winScreen.SetActive(true);
+                IsGameOver = true;
+            }
+
+            return;
+        }
 
         _endOfWave -= Time.deltaTime;
 
@@ -40,7 +57,7 @@ public class GameManager : MonoBehaviour
             _waveEnded = true;
 
             _spawnManager.StopSpawnEnemies();
-            _spawnManager.SpawnBoss();
+            _boss = _spawnManager.SpawnBoss();
 
             _counterText.text = "SURVIVE: (è>é)";
         }

@@ -6,6 +6,9 @@ public class Powerup : MonoBehaviour
     [field: SerializeField]
     public Gun Gun { get; private set; }
 
+    [SerializeField]
+    private AudioClip _pickUpSound;
+
     void Start()
     {
         StartCoroutine(DestroyOnTimeout());
@@ -26,5 +29,10 @@ public class Powerup : MonoBehaviour
         yield return new WaitForSeconds(6.0f);
 
         Destroy(gameObject);
+    }
+
+    public void PickUp()
+    {
+        SoundManager.PlaySound(_pickUpSound, true);
     }
 }

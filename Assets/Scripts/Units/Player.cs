@@ -13,7 +13,6 @@ public class Player : Unit
         _gameManager = FindObjectOfType<GameManager>();
     }
 
-    // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
@@ -53,6 +52,7 @@ public class Player : Unit
         if (other.CompareTag("Powerup"))
         {
             var powerup = other.GetComponent<Powerup>();
+            powerup.PickUp();
             SetGun(powerup.Gun);
 
             Destroy(other.gameObject);

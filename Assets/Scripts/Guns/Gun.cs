@@ -5,6 +5,9 @@ public abstract class Gun : MonoBehaviour
     [field: SerializeField]
     protected GameObject ProjectilePrefab { get; private set; }
 
+    [SerializeField]
+    private AudioClip _shootSound;
+
     private float _projectileSpeed = 10.0f;
     private float _projectileLife = 2.0f;
     private float _fireRate = 0.5f;
@@ -82,6 +85,8 @@ public abstract class Gun : MonoBehaviour
         // Rotate the projectile to face the direction, with slight random deviation
         projectile.transform.forward = direction;
         projectile.transform.Rotate(Vector3.up, Random.Range(-50.0f, 50.0f));
+
+        SoundManager.PlaySound(_shootSound, true, 0.1f);
 
         Destroy(projectile, _projectileLife);
     }

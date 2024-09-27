@@ -235,3 +235,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Gun>k__BackingField: {fileID: 0}
+  _pickUpSound: {fileID: 8300000, guid: 2cbc56531f72a5247acfcfcd8bce4fb6, type: 3}

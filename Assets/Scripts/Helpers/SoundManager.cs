@@ -18,10 +18,12 @@ public class SoundManager : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    public static void PlaySound(AudioClip clip, bool randomPitch = false)
+    public static void PlaySound(AudioClip clip, bool randomPitch = false, float volumeScale = 1.0f)
     {
         if (_instance._audioSource.isPlaying)
-            return;
+        {
+            volumeScale *= 0.2f;
+        }
 
         if (randomPitch)
         {
@@ -29,6 +31,6 @@ public class SoundManager : MonoBehaviour
         }
 
 
-        _instance._audioSource.PlayOneShot(clip);
+        _instance._audioSource.PlayOneShot(clip, volumeScale);
     }
 }

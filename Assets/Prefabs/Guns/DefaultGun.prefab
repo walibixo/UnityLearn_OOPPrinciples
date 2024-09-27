@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ProjectilePrefab>k__BackingField: {fileID: 6262868507508523973, guid: 6f907888ead95cf4089a5dcef314bb65, type: 3}
+  _shootSound: {fileID: 8300000, guid: b35f7b164314e784e86dd684b33cd7c0, type: 3}

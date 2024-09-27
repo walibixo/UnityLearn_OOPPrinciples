@@ -18,7 +18,7 @@ public class Enemy : Unit
     {
         base.Start();
 
-        Init(1, 2.0f);
+        Init(1, 2.5f);
 
         StartCoroutine(AttackPlayer());
     }
@@ -65,7 +65,7 @@ public class Enemy : Unit
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(4.0f, 8.0f));
+            yield return new WaitForSeconds(Random.Range(2.0f, 6.0f));
 
             _isStopped = true;
 

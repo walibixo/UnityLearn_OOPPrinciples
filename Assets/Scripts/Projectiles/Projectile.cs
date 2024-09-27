@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [field: SerializeField]
     public int Damage { get; private set; } = 1;
 
     public bool FromPlayer { get; private set; } = false;
